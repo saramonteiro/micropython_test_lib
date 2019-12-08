@@ -15,7 +15,7 @@ production_code = "dut_positioning.py"
 double_code = "double_GPS.py"
 auxiliar_code = "adafruit_gps.py"
 build = "python -m mpy_cross -s -march=xtensa "
-DUT_PORT = "/dev/ttyUSB2"
+DUT_PORT = "/dev/ttyUSB3"
 DOUBLE_PORT = "/dev/ttyUSB0"
 send = "ampy --port "
 # From set-up:

@@ -14,8 +14,8 @@ from time import sleep
 production_code = "dut_template.py"
 double_code = "double_template.py"
 build = "python -m mpy_cross -s -march=xtensa "
-DUT_PORT = "/dev/ttyUSB1"
-DOUBLE_PORT = "/dev/ttyUSB2"
+DUT_PORT = "/dev/ttyUSB0"
+DOUBLE_PORT = "/dev/ttyUSB1"
 send = "ampy --port "
 # From set-up:
 # Building, connection and sending phase
@@ -60,6 +60,8 @@ class Test_Template(unittest.TestCase):
 
 	#closes serial 
 	def tearDown(self):
+		self.dut_serial.close_serial("del Dut_class", 0,2)
+		self.double_serial.close_serial("del Double_class", 0,2)
 		self.dut_serial.close_serial()
 		self.double_serial.close_serial()
 

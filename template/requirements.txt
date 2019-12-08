@@ -1,0 +1,11 @@
+adafruit-ampy==1.0.7
+Click==7.0
+future==0.18.2
+iso8601==0.1.12
+mpy-cross==1.11
+pkg-resources==0.0.0
+pyserial==3.4
+python-dotenv==0.10.3
+PyYAML==5.2
+serial==0.0.97
+should-dsl==2.1.2
