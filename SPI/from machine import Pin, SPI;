@@ -1,0 +1,15 @@
+from machine import Pin, SPI;
+spi_master = SPI(1, baudrate=2000000,polarity=0, phase=0, bits=8, firstbit=0, sck=Pin(14), mosi=Pin(13), miso=Pin(12));
+cs = Pin(15, Pin.OUT);
+cs.on();
+
+
+import spi_slave;
+spi_slave.init(13,12,14,15);
+spi_slave.write_on_registers(14,[1,2,3]);
+spi_slave.set_register_pointer(14);
+spi_slave.enable_transactions(2,1,2);
+
+spi_slave.set_register_pointer(14);
+spi_slave.free_bus();
+spi_slave.disable_transactions();
