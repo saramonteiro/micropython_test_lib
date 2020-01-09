@@ -24,6 +24,15 @@ try:
 	os.system(build+production_code)
 	print("Building double code...")
 	os.system(build+double_code)
+	print("Cleaning the filesystem...")
+	dut_serial = SerialInterface(DUT_PORT, 115200)
+	dut_serial.connect_to_serial()
+	dut_serial.clean_file_sys()
+	dut_serial.close_serial()
+	double_serial = SerialInterface(DOUBLE_PORT, 115200)
+	double_serial.connect_to_serial()
+	double_serial.clean_file_sys()
+	double_serial.close_serial()
 	print("Sending built production code...")
 	os.system(send+DUT_PORT+" put "+production_code.replace(".py",".mpy"))
 	print("Sending built double code...")
@@ -172,8 +181,10 @@ class Test_Blinker(unittest.TestCase):
 		self.dut_serial.repl("blinker.disable_isr();del blinker", 0.2)
 		self.double_serial.repl("del red_led", 0.1)
 
-	#closes serial and (erases files?) from the file system
+	#closes serial and erase Classes
 	def tearDown(self):
+		self.dut_serial.close_serial("del Blinker", 0,2)
+		self.double_serial.close_serial("del Led", 0,2)
 		self.dut_serial.close_serial()
 		self.double_serial.close_serial()
 

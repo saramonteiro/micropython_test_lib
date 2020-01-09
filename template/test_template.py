@@ -60,8 +60,8 @@ class Test_Template(unittest.TestCase):
 
 	#closes serial 
 	def tearDown(self):
-		self.dut_serial.close_serial("del Dut_class", 0,2)
-		self.double_serial.close_serial("del Double_class", 0,2)
+		self.dut_serial.repl("del Dut_class", 0.2)
+		self.double_serial.repl("del Double_class", 0.2)
 		self.dut_serial.close_serial()
 		self.double_serial.close_serial()
 

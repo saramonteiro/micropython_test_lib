@@ -15,7 +15,7 @@ production_code = "dut_master.py"
 double_code = "double_slave.py"
 build = "python -m mpy_cross -s -march=xtensa "
 DUT_PORT = "/dev/ttyUSB1"
-DOUBLE_PORT = "/dev/ttyUSB0"
+DOUBLE_PORT = "/dev/ttyUSB3"
 send = "ampy --port "
 # From set-up:
 # Building, connection and sending phase
@@ -34,9 +34,9 @@ try:
 	double_serial.clean_file_sys()
 	double_serial.close_serial()
 	print("Sending built production code...")
-	os.system(send+DUT_PORT+" put "+production_code.replace(".py",".mpy"))
+	os.system(send+DUT_PORT+" put "+production_code)#.replace(".py",".mpy"))
 	print("Sending built double code...")
-	os.system(send+DOUBLE_PORT+" put "+double_code.replace(".py",".mpy"))
+	os.system(send+DOUBLE_PORT+" put "+double_code)#.replace(".py",".mpy"))
 except:
 	sys.exit('fail to upload file(s)')
 # Uncomment the next line for not to run the Test
@@ -56,12 +56,90 @@ class Test_Template(unittest.TestCase):
 		self.dut_serial.repl("from dut_master import Dut_master", 0.1) 
 		self.double_serial.repl("from double_slave import Double_slave", 0.1) 
 
-	# < Space for the test cases >
+	def test_reading_registers_without_indicating_address(self):
+		print("\nTesting the method read_registers_wo_address()")
+		expected_readings = [[1,2,3],[4,5,6]]
+		gotten_readings = []
+		print("Expected Readings "+str(expected_readings))
+		# 1 - Objects Creation
+		self.double_serial.repl("slave = Double_slave(13,12,14,15)",0.2)
+		self.dut_serial.repl("master = Dut_master(13,12,14,15)",0.2)
+		# 2, 3 - Input Injection and Results gathering
+		# It sets register address to number 14
+		self.double_serial.repl("slave.set_register_address(14)",0.2)
+		# It writes a sequence of values starting on the register address set up 
+		self.double_serial.repl("slave.set_memory_registers(14,"+str(expected_readings[0])+")", 0.2)
+		self.double_serial.repl("slave.enable_transfers('READ_WO_REG', 3)",0.2)
+		gotten_readings = self.dut_serial.repl("master.read_registers_wo_address(3)",0.2)[2]
+		self.double_serial.repl("slave.set_memory_registers(14,"+str(expected_readings[1])+")", 0.2)
+		self.double_serial.repl("slave.enable_transfers('READ_WO_REG', 3)",0.2)
+		gotten_readings += b', '
+		gotten_readings += self.dut_serial.repl("master.read_registers_wo_address(3)",0.2)[2]
+		gotten_readings = gotten_readings.decode()
+		expected_readings = str(expected_readings)[1:-1]
+		# 4 - Assertion
+		print("Gotten value: "+gotten_readings)
+		gotten_readings |should| equal_to (expected_readings)
+
+	def test_reading_registers_indicating_address(self):
+		print("\nTesting the method read_registers_w_address()")
+		expected_readings = [1,2,3]
+		gotten_readings = []
+		print("Expected Readings "+str(expected_readings))
+		# 1 - Objects Creation
+		self.double_serial.repl("slave = Double_slave(13,12,14,15)",0.2)
+		self.dut_serial.repl("master = Dut_master(13,12,14,15)",0.2)
+		# 2 - Input Injection 
+		self.double_serial.repl("slave.set_memory_registers(14,"+str(expected_readings)+")", 0.2)
+		self.double_serial.repl("slave.enable_transfers('READ_W_REG', 4)",0.2)
+		# 3 - Results gathering
+		gotten_readings = self.dut_serial.repl("master.read_registers_w_address(14, 3)",0.2)[2]
+		gotten_readings = gotten_readings.decode()
+		# 4 - Assertion
+		print("Gotten value: "+gotten_readings)
+		gotten_readings |should| equal_to (str(expected_readings))
+
+	def test_writing_registers_without_indicating_address(self):
+		print("\nTesting the method write_registers_wo_address()")
+		expected_written = [1,2,3]
+		gotten_values = []
+		print("Expected written values "+str(expected_written))
+		# 1 - Objects Creation
+		self.double_serial.repl("slave = Double_slave(13,12,14,15)",0.2)
+		self.dut_serial.repl("master = Dut_master(13,12,14,15)",0.2)
+		# 2 - Input Injection 
+		self.double_serial.repl("slave.set_register_address(14)",0.2)
+		self.double_serial.repl("slave.enable_transfers('WRITE_WO_REG', 3)",0.2)
+		self.dut_serial.repl("master.write_registers_wo_address("+str(expected_written)+")",0.2)
+		# 3 - Results gathering
+		gotten_values = self.double_serial.repl("slave.get_memory_registers(14,3)", 0.2)[2]
+		gotten_values = gotten_values.decode()
+		# 4 - Assertion
+		print("Gotten value: "+gotten_values)
+		gotten_values |should| equal_to (str(expected_written))
+
+	def test_writing_registers_indicating_address(self):
+		print("\nTesting the method write_registers_w_address()")
+		expected_written = [1,2,3]
+		gotten_values = []
+		print("Expected written values "+str(expected_written))
+		# 1 - Objects Creation
+		self.double_serial.repl("slave = Double_slave(13,12,14,15)",0.2)
+		self.dut_serial.repl("master = Dut_master(13,12,14,15)",0.2)
+		# 2 - Input Injection 
+		self.double_serial.repl("slave.enable_transfers('WRITE_W_REG', 4)",0.2)
+		self.dut_serial.repl("master.write_registers_w_address(14,"+str(expected_written)+")",0.2)
+		# 3 - Results gathering
+		gotten_values = self.double_serial.repl("slave.get_memory_registers(14,3)",0.2)[2]
+		gotten_values = gotten_values.decode()
+		# 4 - Assertion
+		print("Gotten value: "+gotten_values)
+		gotten_values |should| equal_to (str(expected_written))
 
 	#closes serial 
 	def tearDown(self):
-		self.dut_serial.close_serial("del Dut_master", 0,2)
-		self.double_serial.close_serial("del Double_slave", 0,2)
+		self.dut_serial.repl("master.deinit(); del master; del Dut_master;", 0.2)
+		self.double_serial.repl("slave.deinit(); del slave; del Double_slave;", 0.2)
 		self.dut_serial.close_serial()
 		self.double_serial.close_serial()
 
