@@ -11,6 +11,7 @@ class Dut_master(object):
 	def read_registers_wo_address(self, num_readings):
 		readings = b''
 		self.cs.off()
+		time.sleep(self.delay)
 		for i in range(0,num_readings):
 			readings += self.spi_master.read(1)
 			time.sleep(self.delay)
@@ -33,6 +34,7 @@ class Dut_master(object):
 
 	def write_registers_wo_address(self, values):
 		self.cs.off()
+		time.sleep(self.delay)
 		for value in values:
 			self.spi_master.write(bytes([value]))
 			time.sleep(self.delay)

@@ -1,3 +1,4 @@
 *.mpy
+*.ras
 __pycache__
 test-env
