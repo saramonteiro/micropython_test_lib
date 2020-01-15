@@ -38,3 +38,7 @@ This module offers the following API:
 -> spi_slave.get_received_buffer()
 	
 	This function return the last transaction received buffer (bytearray format).
+
+Special thanks to Zoltán Vörös for this helful discussion and for the most complete guide to start building my own module:
+https://github.com/v923z/micropython-usermod/issues/3
+https://micropython-usermod.readthedocs.io/en/latest/usermods_01.html
