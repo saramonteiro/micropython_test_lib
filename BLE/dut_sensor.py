@@ -5,7 +5,10 @@ class BLE_Sensor(object):
 
 	def __init__(self, name):
 		self.ble = bluetooth.BLE()
-		sensor = BLETemperature(self.ble, name)
+		self.sensor = BLETemperature(self.ble, name)
+
+	def set_value(self, value, notification = False):
+		self.sensor.set_temperature(value, notification)
 
 	def deinit(self):
 		self.ble.gap_advertise(None)
