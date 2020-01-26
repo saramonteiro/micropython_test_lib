@@ -34,9 +34,9 @@ try:
 	double_serial.clean_file_sys()
 	double_serial.close_serial()
 	print("Sending built production code...")
-	os.system(send+DUT_PORT+" put "+production_code.replace(".py",".mpy"))
+	os.system(send+DUT_PORT+" put "+production_code)#.replace(".py",".mpy"))
 	print("Sending built double code...")
-	os.system(send+DOUBLE_PORT+" put "+double_code.replace(".py",".mpy"))
+	os.system(send+DOUBLE_PORT+" put "+double_code)#.replace(".py",".mpy"))
 except:
 	sys.exit('fail to upload file(s)')
 # Uncomment the next line for not to run the Test
@@ -183,8 +183,8 @@ class Test_Blinker(unittest.TestCase):
 
 	#closes serial and erase Classes
 	def tearDown(self):
-		self.dut_serial.close_serial("del Blinker", 0,2)
-		self.double_serial.close_serial("del Led", 0,2)
+		self.dut_serial.repl("del Blinker", 0.2)
+		self.double_serial.repl("del Led", 0.2)
 		self.dut_serial.close_serial()
 		self.double_serial.close_serial()
 

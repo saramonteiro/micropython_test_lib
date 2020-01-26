@@ -14,8 +14,8 @@ from time import sleep
 production_code = "dut_master.py"
 double_code = "double_slave.py"
 build = "python -m mpy_cross -s -march=xtensa "
-DUT_PORT = "/dev/ttyUSB4"
-DOUBLE_PORT = "/dev/ttyUSB1"
+DUT_PORT = "/dev/ttyUSB1"
+DOUBLE_PORT = "/dev/ttyUSB0"
 send = "ampy --port "
 # From set-up:
 # Building, connection and sending phase
@@ -55,6 +55,7 @@ class Test_Template(unittest.TestCase):
 		self.double_serial.connect_to_serial()
 		self.dut_serial.repl("from dut_master import Dut_master", 0.1) 
 		self.double_serial.repl("from double_slave import Double_slave", 0.1) 
+
 
 	def test_reading_registers_without_indicating_address(self):
 		print("\nTesting the method read_registers_wo_address()")

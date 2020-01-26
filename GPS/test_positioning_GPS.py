@@ -15,8 +15,8 @@ production_code = "dut_positioning.py"
 double_code = "double_GPS.py"
 auxiliar_code = "adafruit_gps.py"
 build = "python -m mpy_cross -s -march=xtensa "
-DUT_PORT = "/dev/ttyUSB3"
-DOUBLE_PORT = "/dev/ttyUSB0"
+DUT_PORT = "/dev/ttyUSB0"
+DOUBLE_PORT = "/dev/ttyUSB1"
 send = "ampy --port "
 # From set-up:
 # Building, connection and sending phase
@@ -37,11 +37,10 @@ try:
 	double_serial.clean_file_sys()
 	double_serial.close_serial()
 	print("Sending built production code...")
-	os.system(send+DUT_PORT+" put "+production_code.replace(".py",".mpy"))
+	os.system(send+DUT_PORT+" put "+production_code)#.replace(".py",".mpy"))
 	print("Sending built auxiliar_code...")
-	os.system(send+DUT_PORT+" put "+auxiliar_code.replace(".py",".mpy"))
-	print("Sending built double code...")
-	os.system(send+DOUBLE_PORT+" put "+double_code.replace(".py",".mpy"))
+	os.system(send+DUT_PORT+" put "+auxiliar_code)#.replace(".py",".mpy"))
+	os.system(send+DOUBLE_PORT+" put "+double_code)#.replace(".py",".mpy"))
 except:
 	sys.exit('fail in set-up phase')
 # Uncomment the next line for not to run the Test
@@ -122,8 +121,8 @@ class Test_Template(unittest.TestCase):
 	#Closes serial 
 	def tearDown(self):
 		# 5 Descomissioning
-		self.double_serial.repl("gps.deinit(); del gps; del DOUBLE_GPS",0.2)[2]
-		self.dut_serial.repl("tracker.deinit(); del tracker; del Positioning",0.2)[2]
+		self.double_serial.repl("gps.deinit(); del gps; del DOUBLE_GPS",0.2)
+		self.dut_serial.repl("tracker.deinit(); del tracker; del Positioning",0.2)
 		self.dut_serial.close_serial()
 		self.double_serial.close_serial()
 		pass
