@@ -32,11 +32,11 @@ try:
 	dut_serial.clean_file_sys()
 	dut_serial.close_serial()
 	print("Sending built production code...")
-	os.system(send+DUT_PORT+" put "+production_code.replace(".py",".mpy"))
+	os.system(send+DUT_PORT+" put "+production_code)#.replace(".py",".mpy"))
 	print("Sending built auxiliar_code...")
-	os.system(send+DUT_PORT+" put "+auxiliar_code.replace(".py",".mpy"))
+	os.system(send+DUT_PORT+" put "+auxiliar_code)#.replace(".py",".mpy"))
 	print("Sending built double code...")
-	os.system(send+DUT_PORT+" put "+double_code.replace(".py",".mpy"))
+	os.system(send+DUT_PORT+" put "+double_code)#.replace(".py",".mpy"))
 except:
 	sys.exit('fail in set-up phase')
 # Uncomment the next line for not to run the Test
