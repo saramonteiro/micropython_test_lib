@@ -47,7 +47,7 @@ class SerialInterface(object):
 	    # print(self.serial_connection.inWaiting())
 	    while (self.serial_connection.inWaiting() > 0):
 	        response = response + self.serial_connection.read(self.serial_connection.inWaiting())
-	        print (response)
+	        # print (response)
 	        response = re.sub('\r'.encode(), ''.encode(), response)
 	        sleep(sleep_time)
 	    response_list = response.split("\n".encode())

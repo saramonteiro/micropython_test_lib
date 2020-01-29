@@ -16,8 +16,8 @@ double_code = "double_cellphone.py"
 auxiliary_double_codes = ["ble_advertising.py", "ble_temperature_central.py"]
 auxiliary_dut_codes = ["ble_advertising.py", "ble_temperature.py"]
 build = "python -m mpy_cross -s -march=xtensa "
-DUT_PORT = "/dev/ttyUSB1"
-DOUBLE_PORT = "/dev/ttyUSB0"
+DUT_PORT = "/dev/ttyUSB0"
+DOUBLE_PORT = "/dev/ttyUSB1"
 send = "ampy --port "
 # From set-up:
 # Building, connection and sending phase

@@ -14,8 +14,8 @@ from time import sleep
 production_code = "dut_blink.py"
 double_code = "double_led.py"
 build = "python -m mpy_cross -s -march=xtensa "
-DUT_PORT = "/dev/ttyUSB1"
-DOUBLE_PORT = "/dev/ttyUSB2"
+DUT_PORT = "/dev/ttyUSB0"
+DOUBLE_PORT = "/dev/ttyUSB1"
 send = "ampy --port "
 # From set-up:
 # Building, connection and sending phase
