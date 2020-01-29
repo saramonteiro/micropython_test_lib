@@ -83,7 +83,6 @@ tx = bytearray('hi master')
 tx = list(tx)
 spi_slave.enable_transaction(tx)
 spi_slave.get_received_buffer()
-rx #it will show the received result
 ```
 * Master side
 ```python
@@ -95,5 +94,6 @@ rx = bytearray(len(tx))
 cs.off()
 spi_master.write_readinto(tx,rx)
 cs.on()
+rx #it will show the received result
 ```
 Try it: Just paste the snippets on the repl. First the slave, after the master. Or try to run step-by-step.
