@@ -1,3 +1,5 @@
+# THIRD PARTY CODE -> Original from https://github.com/micropython/micropython/tree/master/examples/bluetooth
+
 # This example demonstrates a simple temperature sensor peripheral.
 #
 # The sensor's local value updates every second, and it will notify
