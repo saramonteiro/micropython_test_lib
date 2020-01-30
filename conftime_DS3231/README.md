@@ -15,8 +15,8 @@ python3 test_conftime_DS3231.py -v
 
 || DUT | DOUBLE
 ---- | ---- | ---- 
-SDA | 21 
-SCL | 22
+SDA | 21 | 21
+SCL | 22 | 22
 
 
-
+It's necessary to use one pull-up resistor in each bus. It was used 4,7K ohms during the tests.
