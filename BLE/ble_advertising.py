@@ -1,3 +1,5 @@
+# THIRD PARTY CODE -> Original from https://github.com/micropython/micropython/tree/master/examples/bluetooth
+
 # Helpers for generating BLE advertising payloads.
 
 from micropython import const
