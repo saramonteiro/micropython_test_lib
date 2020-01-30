@@ -58,7 +58,7 @@ https://micropython-usermod.readthedocs.io/en/latest/usermods_01.html
 
 This a ready-to-use pre-built firmware with support for SPI in the slave mode. Using this module it is not necessary to build the whole firmware. You only need to use esptool to upload it. 
 
-First erase the flash with the following command:
+First, erase the flash with the following command:
 
     esptool.py --port /dev/ttyUSB0 erase_flash
 
