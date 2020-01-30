@@ -4,7 +4,7 @@ This repository intends to present a method and the implementation for testing e
 
 The purposed method is drawn in the figure below:
 
-![Test Method](https://github.com/saramonteiro/micropython_test_lib/blob/master/method.png)
+![Test Method](https://github.com/saramonteiro/micropython_test_lib/blob/master/images/method.png)
 
 The test architecture is compounded of 3 devices and
 3 codes: 
@@ -84,7 +84,7 @@ The test_template doesn't have any test case but it will test the environment an
 
 If everything is right, you should expect a screen like this:
 
-![Installation ok](https://github.com/saramonteiro/micropython_test_lib/blob/master/ambiente_ok.png)
+![Installation ok](https://github.com/saramonteiro/micropython_test_lib/blob/master/images/ambiente_ok.png)
 
 # Running the Examples
 
