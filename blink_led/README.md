@@ -18,3 +18,7 @@ python3 test_blink_led.py -v
 DUT | DOUBLE
 ------------ | -------------
 2 | 21
+
+Look at it! Here the DUT's output for led was intentionally PIN 2. This pin is connected to an embed led on devs Kit v1, and probably on other boards too. This allows us to see the led really blinking while the test is being performed. Only for visual purposes. 
+
+![blinking](https://github.com/saramonteiro/micropython_test_lib/blob/master/images/blink.gif)
