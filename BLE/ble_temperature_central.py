@@ -1,3 +1,4 @@
+# THIRD PARTY CODE -> Original from https://github.com/micropython/micropython/tree/master/examples/bluetooth
 # This example finds and connects to a BLE temperature sensor (e.g. the one in ble_temperature.py).
 
 import bluetooth
