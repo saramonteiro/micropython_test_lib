@@ -97,3 +97,30 @@ cs.on()
 rx #it will show the received result
 ```
 Try it: Just paste the snippets on the repl. First the slave, after the master. Or try to run step-by-step.
+
+# SPI Demo 
+
+This example shows how to test sending and receiving data on the SPI bus. The DOUBLE is playing the role of an SPI slave as any peripheral that uses SPI to talk to a microcontroller. 
+
+## Firmwares
+DUT: [micropython original firmware](http://micropython.org/download#esp32).
+
+DOUBLE: [micropython with spi slave mode](https://github.com/saramonteiro/micropython_test_lib/tree/master/SPI/pre-built-firmware).
+
+## How to run it:
+``` 
+python3 test_master_slave.py -v
+``` 
+
+## Electrical Connections
+
+| | DUT | DOUBLE 
+---- | ---- | ----
+MOSI | 13 | 13
+MISO | 12 | 12
+SCLK | 14 | 14
+CS | 15 | 15
+
+
+
+
