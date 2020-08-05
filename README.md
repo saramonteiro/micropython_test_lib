@@ -80,6 +80,7 @@ Connect the esp32 boards and check the USB port each device is connected to. Ent
 ``` 
 python3 test_template.py -v
 ``` 
+P.S: You may have to run this command with sudo since it requires permission to establish a serial connection. 
 The test_template doesn't have any test case but it will test the environment and the communication to the boards.
 
 If everything is right, you should expect a screen like this:
